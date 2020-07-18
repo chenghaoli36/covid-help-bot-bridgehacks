@@ -15,11 +15,12 @@ async def on_ready():
 
 @bot.command()
 async def crash(ctx):
-    raise Exception("lol i crashed")
-
+    if(str(os.getenv('OWNER_ID'))==str(ctx.author.id)):
+        raise Exception("bot was commanded to crash")
 @bot.command()
 async def test(ctx):
     await ctx.send('hi')
+
 
 async def on_message(message):
     if message.author == client.user:
