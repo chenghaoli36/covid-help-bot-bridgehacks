@@ -17,4 +17,4 @@ re
 
 ## stuff. readme is wip
 
-###made during the 2020 bridgehacks hackathon
+### made during the 2020 bridgehacks hackathon
