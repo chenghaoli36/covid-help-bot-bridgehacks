@@ -5,6 +5,7 @@
 fortnite
 
 ## Used libraries and stuff
+'''
 lavalink
 
 discord.py
@@ -14,7 +15,7 @@ ffmpeg?(i think)
 os
 
 re
-
+'''
 ## stuff. readme is wip
 
 ### made during the 2020 bridgehacks hackathon
