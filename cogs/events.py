@@ -1,3 +1,7 @@
+# events.py
+
+# houses all the events, ex: on_ready, on_message, etc.
+
 import discord
 from discord.ext import commands
 import os

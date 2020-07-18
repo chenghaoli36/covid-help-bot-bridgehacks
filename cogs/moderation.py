@@ -1,3 +1,7 @@
+# moderation.py
+
+# houses all the moderation code. very useful other than the fact that 80% of bots have these commands.
+
 import discord
 from discord.ext import commands
 

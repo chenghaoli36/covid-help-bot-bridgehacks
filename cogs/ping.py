@@ -1,3 +1,7 @@
+# ping.py
+
+#probably the least useful thing in the bot but fun to have
+
 import discord
 from discord.ext import commands
 

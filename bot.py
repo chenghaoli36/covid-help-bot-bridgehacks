@@ -1,4 +1,7 @@
 # bot.py
+
+# the base code that runs the rest of the bot
+
 import os
 import discord
 from dotenv import load_dotenv

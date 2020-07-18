@@ -1,3 +1,9 @@
+# music.py
+
+# uses lavalink stuff
+# github example repo for lavalink here:https://github.com/Devoxin/Lavalink.py/blob/master/examples/music.py
+# cool music bot stuff here:
+
 import re
 import discord
 from discord.ext import commands
