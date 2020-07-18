@@ -5,17 +5,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-bot = commands.Bot(command_prefix='!')
-
-client = discord.Client()
-
-@bot.event
-async def on_ready():
-    print("bot ready")
-
-async def on_message(message):
-    if message.author == client.user:
-        return
+bot = commands.Bot(command_prefix=os.getenv('PREFIX'))
 
 @bot.command()
 async def load(ctx, extension):
