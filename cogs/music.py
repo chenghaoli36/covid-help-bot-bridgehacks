@@ -66,7 +66,7 @@ class Music(commands.Cog):
             track = results['tracks'][int(response.content)-1]
             track = lavalink.models.AudioTrack(track, ctx.author.id, recommended=True)
             player.add(requester = ctx.author.id,track=track)
-            await ctx.channel.send("Playing")
+            await ctx.channel.send("Added to queue")
             if not player.is_playing:
                 await player.play()
         except Exception as error:
