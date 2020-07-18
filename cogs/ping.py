@@ -1,6 +1,7 @@
 # ping.py
 
-#probably the least useful thing in the bot but fun to have
+# probably the least useful thing in the bot but fun to have
+# also serves as a template for other cogs ima write
 
 import discord
 from discord.ext import commands

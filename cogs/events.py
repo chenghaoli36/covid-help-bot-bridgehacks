@@ -11,14 +11,10 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("bot ready")
-        await self.client.change_presence(status=discord.Status.online, activity=discord.Game('prefix: '+self.client.command_prefix))
+        await self.client.change_presence(status=discord.Status.online, activity=discord.Game('building a bridge to a better world :D\nprefix: '+self.client.command_prefix))
         for filename in os.listdir('./cogs'):
             if filename.endswith(".py") and filename != "events.py":
                 self.client.load_extension("cogs."+str(filename[:-3]))
-    @commands.Cog.listener()
-    async def on_message(self,message):
-        if(message.author == discord.Client().user):
-            return
     @commands.Cog.listener()
     async def on_command_error(self,ctx,error):
         if(isinstance(error, commands.MissingRequiredArgument)):
