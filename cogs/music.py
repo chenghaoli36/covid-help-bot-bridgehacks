@@ -6,7 +6,7 @@ class Music(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
         self.bot.music = lavalink.Client(self.bot.user.id)
-        self.bot.music.add_node('localhost',7000,'testing','na','music-node')
+        self.bot.music.add_node('localhost', 8888,'testing','na','music-node')
         self.bot.add_listener(self.bot.music.voice_update_handler, 'on_socket_response')
         self.bot.music.add_event_hook(self.track_hook)
     @commands.command(name = 'join')
@@ -19,7 +19,7 @@ class Music(commands.Cog):
                 player.store('channel',ctx.channel.id)
                 await self.connect_to(ctx.guild.id, str(vc.id))
     @commands.command(name = 'play')
-    async def play(self,ctx,*, query):
+    async def play(self,ctx, *, query):
         try:
             player = self.bot.music.player_manager.get(ctx.guild.id)
             query = 'ytsearch:'+query
@@ -33,15 +33,17 @@ class Music(commands.Cog):
             embed = discord.Embed(color = discord.Color.blurple())
             embed.description = query_result
             embed.title = "querey results:"
-            await ctx.channel.senden(embed)
+            await ctx.channel.send(embed=embed)
             def check(m):
                 return m.author.id == ctx.author.id
             response = await self.bot.wait_for('message',check = check)
+            print(response)
             track = tracks[int(response.content)-1]
             player.add(requester = ctx.author.id,track=track)
             if not player.is_playing:
                 await player.play()
         except Exception as error:
+            await ctx.channel.send("There was an error, please try again.")
             print(error)
     async def track_hook(self, event):
         if isinstance(event, lavalink.events.QueueEndEvent):

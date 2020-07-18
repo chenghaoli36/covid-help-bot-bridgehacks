@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+import os
 class Events(commands.Cog):
     def __init__(self,client):
         self.client = client
@@ -8,6 +8,9 @@ class Events(commands.Cog):
     async def on_ready(self):
         print("bot ready")
         await self.client.change_presence(status=discord.Status.online, activity=discord.Game('prefix: '+self.client.command_prefix))
+        for filename in os.listdir('./cogs'):
+            if filename.endswith(".py") and filename != "events.py":
+                self.client.load_extension("cogs."+str(filename[:-3]))
     @commands.Cog.listener()
     async def on_message(self,message):
         if(message.author == discord.Client().user):

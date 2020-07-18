@@ -51,10 +51,6 @@ async def reloadall(ctx):
             print(error)
             await ctx.send("reload failed")
 
-@bot.event
-async def on_ready():
-    for filename in os.listdir('./cogs'):
-        if filename.endswith(".py"):
-            bot.load_extension("cogs."+str(filename[:-3]))
+bot.load_extension('cogs.events')
 
 bot.run(TOKEN)
