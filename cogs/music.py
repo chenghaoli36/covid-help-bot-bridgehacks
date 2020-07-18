@@ -7,7 +7,7 @@ class Music(commands.Cog):
         self.bot = bot
         self.bot.music = lavalink.Client(self.bot.user.id)
         self.bot.music.add_node('localhost',7000,'testing','na','music-node')
-        self.bot.add_listenser(self.bot.music.voice_update_handler, 'on_socket_response')
+        self.bot.add_listener(self.bot.music.voice_update_handler, 'on_socket_response')
         self.bot.music.add_event_hook(self.track_hook)
     @commands.command(name = 'join')
     async def join(self,ctx):
@@ -21,7 +21,7 @@ class Music(commands.Cog):
     @commands.command(name = 'play')
     async def play(self,ctx,*, query):
         try:
-            player = self.bot.music.player_manager.get(ctx,guild.id)
+            player = self.bot.music.player_manager.get(ctx.guild.id)
             query = 'ytsearch:'+query
             results = await player.node.get_tracks(query)
             tracks = results['tracks'][0:10]
@@ -30,8 +30,9 @@ class Music(commands.Cog):
             for track in tracks:
                 i=i+1
                 query_result = query_result + f'{i}) {track["info"]["title"]} - {track["info"]["uri"]}\n'
-            embed = Embed()
+            embed = discord.Embed(color = discord.Color.blurple())
             embed.description = query_result
+            embed.title = "querey results:"
             await ctx.channel.senden(embed)
             def check(m):
                 return m.author.id == ctx.author.id
