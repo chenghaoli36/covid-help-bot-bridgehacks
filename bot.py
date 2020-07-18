@@ -18,6 +18,20 @@ async def on_message(message):
         return
 
 @bot.command()
+async def load(ctx, extension):
+    if(str(os.getenv('OWNER_ID'))==str(ctx.author.id)):
+        bot.load_extension("cogs."+str(extension))
+
+@bot.command()
+async def unload(ctx, extension):
+    if(str(os.getenv('OWNER_ID'))==str(ctx.author.id)):
+        bot.unload_extension("cogs."+str(extension))
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith(".py"):
+        bot.load_extension("cogs."+str(filename[:-3]))
+
+@bot.command()
 async def crash(ctx):
     if(str(os.getenv('OWNER_ID'))==str(ctx.author.id)):
         raise Exception("crash command",ctx.author.id)
@@ -50,6 +64,5 @@ async def unban(ctx, *, member):
             await ctx.guild.unban(user)
             await ctx.send("Member unbanned:"+user.mention)
             return
-
 
 bot.run(TOKEN)
