@@ -5,17 +5,21 @@ class Moderation(commands.Cog):
     def __init__(self,client):
         self.client = client
     @commands.command()
+    @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx,amount=10):
         await ctx.channel.purge(limit = amount+1)
     @commands.command()
+    @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send("Member kicked:"+member.mention)
     @commands.command()
+    @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send("Member banned:"+member.mention)
     @commands.command()
+    @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name,member_discriminator = member.split('#')
