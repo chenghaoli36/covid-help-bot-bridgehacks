@@ -25,16 +25,18 @@ class chat(commands.Cog):
                     pass
                 else:
                     async with message.channel.typing():
-                        user_message = message.content.replace(message.guild.me.mention,'') if message.guild else message.content
+                        user_message = message.content
                         session_client = dialogflow.SessionsClient()
                         session = session_client.session_path(DIALOGFLOW_PROJECT_ID, SESSION_ID)
-                        text_input = dialogflow.types.TextInput(text=user_message, language_code=DIALOGFLOW_LANGUAGE_CODE)
+                        if(isinstance(message.channel, discord.channel.DMChannel)):
+                            text_input = dialogflow.types.TextInput(text=user_message, language_code=DIALOGFLOW_LANGUAGE_CODE)
+                        else:
+                            text_input = dialogflow.types.TextInput(text=user_message.replace("<@!"+str(message.guild.me.id)+"> ",""), language_code=DIALOGFLOW_LANGUAGE_CODE)
                         query_input = dialogflow.types.QueryInput(text=text_input)
                         try:
                             response = session_client.detect_intent(session=session, query_input=query_input)
                         except InvalidArgument:
                             raise
-                    print(response)
                     await message.channel.send(response.query_result.fulfillment_text)
             except Exception as error:
                 await message.channel.send("Make sure you didn't give too much or too little input and try agian.")

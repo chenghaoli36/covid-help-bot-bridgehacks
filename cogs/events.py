@@ -11,7 +11,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("bot ready")
-        await self.client.change_presence(status=discord.Status.online, activity=discord.Game('dm/ping me to talk! prefix: '+self.client.command_prefix+". usage: "+self.client.command_prefix+"help"))
+        await self.client.change_presence(status=discord.Status.online, activity=discord.Game('dm/ping me to talk! prefix: '+self.client.command_prefix+". usage: "+self.client.command_prefix+"help."))
         for filename in os.listdir('./cogs'):
             if filename.endswith(".py") and filename != "events.py":
                 self.client.load_extension("cogs."+str(filename[:-3]))
