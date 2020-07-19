@@ -12,6 +12,9 @@ discord.py
 ffmpeg?(i think)
 os
 re
+dotenv
+dialogflow
+google.api_core.exceptions
 ```
 
 ## stuff. readme is wip
