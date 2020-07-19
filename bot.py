@@ -49,7 +49,6 @@ async def reload(ctx, extension="all"):
                 bot.load_extension("cogs."+str(extension))
                 await ctx.send("Done! "+ctx.author.mention)
             except Exception as error:
-                print(error)
                 await ctx.send("reload failed")
 
 bot.load_extension('cogs.events')

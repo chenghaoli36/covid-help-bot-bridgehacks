@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import dialogflow
 from google.api_core.exceptions import InvalidArgument
+from redditenv import *
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\code\covidhelpbot\covid-fa9e1e459d3c.json"
 DIALOGFLOW_PROJECT_ID = 'covid-ltbqsu'
@@ -40,8 +41,15 @@ class chat(commands.Cog):
                     if(response.query_result.fulfillment_text!=""):
                         await message.channel.send(response.query_result.fulfillment_text)
                     else:
-                        if(response.query_result.intent.displayname=="Getcovidnews!"):
-                            asdf
+                        daintent = response.query_result.intent
+                        if(daintent.display_name=="Getcovidnews!"):
+                            post = findhot("coronavirus",2)
+                            for id in post:
+                                await message.channel.send(linkpost("coronavirus",id))
+                        elif(daintent.display_name=="Getnews!"):
+                            post = findhot("news")
+                            for id in post:
+                                await message.channel.send(linkpost("news",id))
                         else:
                             await message.channel.send("Our response is currently work in progress, sorry about that!")
             except Exception as error:
