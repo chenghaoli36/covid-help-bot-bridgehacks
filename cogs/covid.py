@@ -12,29 +12,18 @@ import re
 from datetime import datetime
 import smtplib
 import os
+import covidenv
 
 class Coronavirus(commands.Cog):
     def __init__(self,bot):
-        self.driver = webdriver.Chrome()
         self.bot = bot
     @commands.command()
-    async def coviddata(self,ctx):
-        self.driver.get('https://www.worldometers.info/coronavirus/')
-        table = self.driver.find_element_by_xpath('//*[@id="main_table_countries_today"]/tbody[1]')
-        country_element = table.find_element_by_xpath("//td[contains(., 'USA')]")
-        row = country_element.find_element_by_xpath("./..")
-        print(row.text)
-        data = row.text.split(" ")
-        total_cases = data[2]
-        new_cases = data[3]
-        total_deaths = data[4]
-        new_deaths = data[5]
-        active_cases = data[6]
-        total_recovered = data[7]
-        serious_critical = data[8]
-        embed = discord.Embed(color = discord.Color.blurple())
-        embed.description = "Country: " + country_element.text+"\n"+"Total cases: " + total_cases+"\n"+"New cases: " + new_cases+"\n"+"Total deaths: " + total_deaths+"\n"+"New deaths: " + new_deaths+"\n"+"Active cases: " + active_cases+"\n"+"Total recovered: " + total_recovered+"\n"+"Serious, critical cases: " + serious_critical+"\n"
-        embed.title = "results:"
+    async def coviddata(self,ctx,country = "USA"):
+        await ctx.send("please wait while I gather the data. This may take a while(1-2 min). try again if it doesn't work")
+        async with ctx.channel.typing():
+            embed = discord.Embed(color = discord.Color.blurple())
+            embed.description = covidenv.coviddata(country)
+            embed.title = "results:"
         await ctx.send(embed=embed)
 def setup(bot):
     bot.add_cog(Coronavirus(bot))
