@@ -34,6 +34,7 @@ class chat(commands.Cog):
                             response = session_client.detect_intent(session=session, query_input=query_input)
                         except InvalidArgument:
                             raise
+                    print(response)
                     await message.channel.send(response.query_result.fulfillment_text)
             except Exception as error:
                 await message.channel.send("Make sure you didn't give too much or too little input and try agian.")
