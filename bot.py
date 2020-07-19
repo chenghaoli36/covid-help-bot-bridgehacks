@@ -30,7 +30,7 @@ async def unload(ctx, extension):
             print(error)
             await ctx.send("unloading failed")
 
-@bot.command()
+@bot.command(alias = "refresh")
 async def reload(ctx, extension="all"):
     if(str(os.getenv('OWNER_ID'))==str(ctx.author.id)):
         if(extension=="all"):
