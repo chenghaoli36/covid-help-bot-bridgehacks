@@ -19,7 +19,7 @@ class chat(commands.Cog):
         self.bot = bot
     @commands.Cog.listener()
     async def on_message(self,message):
-        if(not message.author.bot and self.bot.user in message.mentions):
+        if((not message.author.bot and self.bot.user in message.mentions) or (isinstance(message.channel, discord.channel.DMChannel) and not message.author.bot)):
             try:
                 if message.content.startswith(("$", "!", "?", "-", "*", "`", "~", "+", "/", ";", "=", "&", ">")):
                     pass
