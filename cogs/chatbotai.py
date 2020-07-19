@@ -2,7 +2,7 @@
 
 # used for dialogflow api implementation
 
-import json, apiai, discord, asyncio, os
+import discord, os
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
@@ -37,7 +37,13 @@ class chat(commands.Cog):
                             response = session_client.detect_intent(session=session, query_input=query_input)
                         except InvalidArgument:
                             raise
-                    await message.channel.send(response.query_result.fulfillment_text)
+                    if(response.query_result.fulfillment_text!=""):
+                        await message.channel.send(response.query_result.fulfillment_text)
+                    else:
+                        if(response.query_result.intent.displayname=="Getcovidnews!"):
+                            asdf
+                        else:
+                            await message.channel.send("Our response is currently work in progress, sorry about that!")
             except Exception as error:
                 await message.channel.send("Make sure you didn't give too much or too little input and try agian.")
                 print(error)
