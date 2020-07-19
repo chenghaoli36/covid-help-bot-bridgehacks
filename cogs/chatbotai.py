@@ -24,10 +24,10 @@ class chat(commands.Cog):
                         request = ai.text_request()
                         request.query = user_message
                         response = json.loads(request.getresponse().read())
-                        #result = response['result']
-                        #action = result.get('action')
+                        result = response['result']
+                        action = result.get('action')
                     print(response)
-                    #await message.channel.send(f"{message.author.mention} {response['result']['fulfillment']['speech']}")
+                    await message.channel.send(f"{message.author.mention} {response['result']['fulfillment']['speech']}")
             except Exception as error:
                 await message.channel.send("Make sure you didn't give too much or too little input and try agian.")
                 print(error)
