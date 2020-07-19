@@ -17,11 +17,11 @@ class reddit(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
     @commands.command()
-    async def hotonreddit(self,ctx,subreddit):
-        reddit = praw.Reddit(client_id = '4JkADmoHNdaAKg',client_secret=os.getenv('REDDIT_KEY'))
+    async def reddit(self,ctx,subreddit,posts=1):
+        reddit = praw.Reddit(client_id = os.getenv('REDDIT_ID'),client_secret=os.getenv('REDDIT_KEY'),user_agent = 'covidhelpbotscript', username = 'Cautious_Research_23', password = os.getenv('REDDIT_PASSWORD'))
         hot_post = reddit.subreddit(subreddit)
-        hot_post = hot_post.hot(limit=1)
+        hot_post = hot_post.hot(limit=posts)
         for i in hot_post:
-            print(i)
+            await ctx.send("https://www.reddit.com/r/"+str(subreddit)+"/comments/"+str(i))
 def setup(bot):
     bot.add_cog(reddit(bot))
